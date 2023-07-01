@@ -1,8 +1,7 @@
 package com.example.data.repository
 
 import com.example.data.model.NoteEntity
-import com.example.data.source.NotesMongoDataSource
-import com.example.domain.model.Note
+import com.example.data.source.notes.NotesMongoDataSource
 import com.example.domain.repository.NotesRepository
 
 class DataNotesRepository(

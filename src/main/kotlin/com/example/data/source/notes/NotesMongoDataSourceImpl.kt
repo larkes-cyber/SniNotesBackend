@@ -1,13 +1,12 @@
-package com.example.data.source
+package com.example.data.source.notes
 
 import com.example.data.model.NoteEntity
 import com.mongodb.client.model.Filters
 import org.litote.kmongo.coroutine.CoroutineDatabase
-import org.litote.kmongo.coroutine.insertOne
 
 class NotesMongoDataSourceImpl(
     private val db: CoroutineDatabase
-):NotesMongoDataSource {
+): NotesMongoDataSource {
 
     val notes = db.getCollection<NoteEntity>()
     override suspend fun insertNote(note: NoteEntity) {

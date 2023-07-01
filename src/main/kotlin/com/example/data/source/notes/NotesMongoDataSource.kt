@@ -1,4 +1,4 @@
-package com.example.data.source
+package com.example.data.source.notes
 
 import com.example.data.model.NoteEntity
 

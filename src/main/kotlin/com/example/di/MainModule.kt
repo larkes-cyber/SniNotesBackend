@@ -1,9 +1,13 @@
 package com.example.di
 
 import com.example.data.repository.DataNotesRepository
-import com.example.data.source.NotesMongoDataSource
-import com.example.data.source.NotesMongoDataSourceImpl
+import com.example.data.repository.DataUserRepository
+import com.example.data.source.notes.NotesMongoDataSource
+import com.example.data.source.notes.NotesMongoDataSourceImpl
+import com.example.data.source.user.UserAuthDataSource
+import com.example.data.source.user.UserAuthDataSourceImpl
 import com.example.domain.repository.NotesRepository
+import com.example.domain.repository.UserRepository
 import com.example.domain.usecase.*
 import org.koin.dsl.module
 import org.litote.kmongo.reactivestreams.KMongo
@@ -27,6 +31,14 @@ val mainModule = module {
         DataNotesRepository(get())
     }
 
+    single<UserAuthDataSource> {
+        UserAuthDataSourceImpl()
+    }
+
+    single<UserRepository> {
+        DataUserRepository(get())
+    }
+
     factory {
         UseGetAllNotes(get())
     }
@@ -43,6 +55,12 @@ val mainModule = module {
     }
     factory {
         UseFindNoteById(get())
+    }
+    factory {
+        UseGeneratePasswordHash(get())
+    }
+    factory {
+        UseGenerateToken(get())
     }
 
 

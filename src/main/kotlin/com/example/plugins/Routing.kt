@@ -16,6 +16,8 @@ fun Application.configureRouting() {
     val useUpdateNote by inject<UseUpdateNote>()
     val useGeneratePasswordHash by inject<UseGeneratePasswordHash>()
     val useGenerateToken by inject<UseGenerateToken>()
+    val useInsertUser by inject<UseInsertUser>()
+    val useFindUserByEmail by inject<UseFindUserByEmail>()
 
     install(Routing){
         singleNoteRouting(
@@ -29,7 +31,9 @@ fun Application.configureRouting() {
         )
         userRouting(
             useGeneratePasswordHash = useGeneratePasswordHash,
-            useGenerateToken = useGenerateToken
+            useGenerateToken = useGenerateToken,
+            useFindUserByEmail = useFindUserByEmail,
+            useInsertUser = useInsertUser
         )
     }
 }

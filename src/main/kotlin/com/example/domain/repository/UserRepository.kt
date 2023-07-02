@@ -8,4 +8,6 @@ interface UserRepository {
     fun generateToken(user:UserEntity):String
     fun generatePasswordHash(password:String):String
 
+    suspend fun insertUser(user: UserEntity)
+    suspend fun findUserByEmail(email:String):UserEntity?
 }

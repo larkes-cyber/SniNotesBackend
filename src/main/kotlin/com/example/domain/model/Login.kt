@@ -3,8 +3,7 @@ package com.example.domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class Login(
     val email:String,
-    var password:String,
-    val userName:String = ""
+    val password:String
 )

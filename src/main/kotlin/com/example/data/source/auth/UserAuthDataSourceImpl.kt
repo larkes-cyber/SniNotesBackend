@@ -1,4 +1,4 @@
-package com.example.data.source.user
+package com.example.data.source.auth
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
@@ -23,6 +23,7 @@ class UserAuthDataSourceImpl:UserAuthDataSource {
             .withSubject(SUBJECT)
             .withIssuer(ISSUER)
             .withClaim("email", user.email)
+            .withClaim("password", user.password)
             .sign(algorithm)
     }
 

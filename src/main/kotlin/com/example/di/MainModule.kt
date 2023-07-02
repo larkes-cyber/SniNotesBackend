@@ -4,8 +4,10 @@ import com.example.data.repository.DataNotesRepository
 import com.example.data.repository.DataUserRepository
 import com.example.data.source.notes.NotesMongoDataSource
 import com.example.data.source.notes.NotesMongoDataSourceImpl
-import com.example.data.source.user.UserAuthDataSource
-import com.example.data.source.user.UserAuthDataSourceImpl
+import com.example.data.source.auth.UserAuthDataSource
+import com.example.data.source.auth.UserAuthDataSourceImpl
+import com.example.data.source.user.UserMongoDataSource
+import com.example.data.source.user.UserMongoDataSourceImpl
 import com.example.domain.repository.NotesRepository
 import com.example.domain.repository.UserRepository
 import com.example.domain.usecase.*
@@ -27,26 +29,33 @@ val mainModule = module {
         NotesMongoDataSourceImpl(get())
     }
 
-    single<NotesRepository> {
-        DataNotesRepository(get())
-    }
-
     single<UserAuthDataSource> {
         UserAuthDataSourceImpl()
     }
 
+    single<UserMongoDataSource> {
+        UserMongoDataSourceImpl(get())
+    }
+
+    single<NotesRepository> {
+        DataNotesRepository(get())
+    }
+
+
+
     single<UserRepository> {
-        DataUserRepository(get())
+        DataUserRepository(
+            userAuthDataSource =  get(),
+            userMongoDataSource = get()
+        )
     }
 
     factory {
         UseGetAllNotes(get())
     }
-
     factory {
         UseInsertNote(get())
     }
-
     factory {
         UseDeleteNoteById(get())
     }
@@ -62,6 +71,11 @@ val mainModule = module {
     factory {
         UseGenerateToken(get())
     }
-
+    factory {
+        UseInsertUser(get())
+    }
+    factory {
+        UseFindUserByEmail(get())
+    }
 
 }

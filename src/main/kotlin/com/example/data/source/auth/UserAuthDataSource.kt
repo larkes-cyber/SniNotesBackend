@@ -1,4 +1,4 @@
-package com.example.data.source.user
+package com.example.data.source.auth
 
 import com.example.data.model.UserEntity
 

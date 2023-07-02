@@ -7,5 +7,6 @@ data class Note(
     val title:String,
     val text:String,
     val id:String?,
-    val timestamp:Long
+    val timestamp:Long,
+    val session:String,
 )

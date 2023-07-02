@@ -7,14 +7,16 @@ fun Note.toNoteEntity():NoteEntity{
         NoteEntity(
             text = text,
             title = title,
-            timestamp = timestamp
+            timestamp = timestamp,
+            session = session
         )
     }else {
         NoteEntity(
             text = text,
             title = title,
             id = id,
-            timestamp = timestamp
+            timestamp = timestamp,
+            session = session
         )
     }
 }
@@ -24,6 +26,7 @@ fun NoteEntity.toNote(): Note {
         id = id,
         title = title,
         text = text,
-        timestamp = timestamp
+        timestamp = timestamp,
+        session = session
     )
 }

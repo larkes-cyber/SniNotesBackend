@@ -8,8 +8,8 @@ class UseGetAllNotes(
     private val notesRepository: NotesRepository
 ) {
 
-    suspend fun execute():List<Note>{
-        return notesRepository.getNotes().map { it.toNote() }
+    suspend fun execute(session:String):List<Note>{
+        return notesRepository.getNotes(session).map { it.toNote() }
     }
 
 }

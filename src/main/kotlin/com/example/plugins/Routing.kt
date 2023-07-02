@@ -11,23 +11,26 @@ import org.koin.ktor.ext.inject
 fun Application.configureRouting() {
     val useInsertNote by inject<UseInsertNote>()
     val useGetAllNotes by inject<UseGetAllNotes>()
-    val useDeleteNoteById by inject<UseDeleteNoteById>()
+    val useDeleteNote by inject<UseDeleteNote>()
     val useFindNoteById by inject<UseFindNoteById>()
     val useUpdateNote by inject<UseUpdateNote>()
     val useGeneratePasswordHash by inject<UseGeneratePasswordHash>()
     val useGenerateToken by inject<UseGenerateToken>()
     val useInsertUser by inject<UseInsertUser>()
     val useFindUserByEmail by inject<UseFindUserByEmail>()
+    val useCheckExistUser by inject<UseCheckExistUser>()
 
     install(Routing){
         singleNoteRouting(
             useInsertNote = useInsertNote,
-            useDeleteNoteById = useDeleteNoteById,
+            useDeleteNote = useDeleteNote,
             useFindNoteById = useFindNoteById,
-            useUpdateNote = useUpdateNote
+            useUpdateNote = useUpdateNote,
+            useCheckExistUser = useCheckExistUser
         )
         notesRouting(
-            useGetAllNotes = useGetAllNotes
+            useGetAllNotes = useGetAllNotes,
+            useCheckExistUser = useCheckExistUser
         )
         userRouting(
             useGeneratePasswordHash = useGeneratePasswordHash,

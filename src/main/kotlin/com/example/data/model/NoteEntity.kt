@@ -9,6 +9,7 @@ data class NoteEntity(
     val id:String = ObjectId().toString(),
     val text:String,
     val title:String,
-    val timestamp:Long
+    val timestamp:Long,
+    val session:String
 
 )

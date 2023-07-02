@@ -8,7 +8,7 @@ class UserMongoDataSourceImpl(
     private val db: CoroutineDatabase
 ):UserMongoDataSource {
 
-    val users = db.getCollection<UserEntity>()
+    private val users = db.getCollection<UserEntity>()
     override suspend fun insertUser(userEntity: UserEntity) {
         users.insertOne(userEntity)
     }

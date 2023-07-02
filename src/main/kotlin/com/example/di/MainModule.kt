@@ -57,7 +57,7 @@ val mainModule = module {
         UseInsertNote(get())
     }
     factory {
-        UseDeleteNoteById(get())
+        UseDeleteNote(get())
     }
     factory {
         UseUpdateNote(get())
@@ -76,6 +76,9 @@ val mainModule = module {
     }
     factory {
         UseFindUserByEmail(get())
+    }
+    factory {
+        UseCheckExistUser(get(),get())
     }
 
 }

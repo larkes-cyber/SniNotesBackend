@@ -36,7 +36,8 @@ fun Application.configureRouting() {
             useGeneratePasswordHash = useGeneratePasswordHash,
             useGenerateToken = useGenerateToken,
             useFindUserByEmail = useFindUserByEmail,
-            useInsertUser = useInsertUser
+            useInsertUser = useInsertUser,
+            useCheckExistUser = useCheckExistUser
         )
     }
 }

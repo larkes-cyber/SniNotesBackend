@@ -16,9 +16,11 @@ fun Routing.notesRouting(
 
     route("/notes"){
 
+
+
         get("{session?}/{email?}") {
-            val session = call.parameters["session"] ?: return@get call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
-            val email = call.parameters["email"] ?: return@get call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val session = call.parameters["session"] ?: return@get call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val email = call.parameters["email"] ?: return@get call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             return@get if(useCheckExistUser.execute(email = email, session = session)){
                 call.respond(HttpStatusCode.OK, useGetAllNotes.execute(session))
              }else{

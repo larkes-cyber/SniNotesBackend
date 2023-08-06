@@ -4,7 +4,7 @@ import com.example.domain.model.Note
 import com.example.domain.usecase.*
 import com.example.utils.Constants
 import com.example.utils.Constants.EMPTY_TEXT_MESSAGE
-import com.example.utils.Constants.MISSING_ID_MESSAGE
+import com.example.utils.Constants.MISSED_ID_MESSAGE
 import com.example.utils.Constants.SUCCESS_MESSAGE
 import com.example.utils.Resource
 import io.ktor.application.*
@@ -30,8 +30,8 @@ fun Routing.singleNoteRouting(
             if(note.text.isEmpty()) call.respondText(EMPTY_TEXT_MESSAGE, status =  HttpStatusCode.LengthRequired)
             if(note.title.isEmpty()) call.respondText(EMPTY_TEXT_MESSAGE, status =  HttpStatusCode.LengthRequired)
 
-            val session = call.parameters["session"] ?: return@post call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
-            val email = call.parameters["email"] ?: return@post call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val session = call.parameters["session"] ?: return@post call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val email = call.parameters["email"] ?: return@post call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@post  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
 
             useInsertNote.execute(note)
@@ -39,10 +39,10 @@ fun Routing.singleNoteRouting(
         }
 
         delete("{id?}/{session?}/{email?}") {
-            val id = call.parameters["id"] ?: return@delete call.respondText(MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val id = call.parameters["id"] ?: return@delete call.respondText(MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
 
-            val session = call.parameters["session"] ?: return@delete call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
-            val email = call.parameters["email"] ?: return@delete call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val session = call.parameters["session"] ?: return@delete call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val email = call.parameters["email"] ?: return@delete call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@delete  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
 
             when(val res = useDeleteNote.execute(id = id, session = session)){
@@ -53,10 +53,10 @@ fun Routing.singleNoteRouting(
         }
 
         get("{id?}/{session?}/{email?}"){
-            val id = call.parameters["id"] ?: return@get call.respondText(MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val id = call.parameters["id"] ?: return@get call.respondText(MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
 
-            val session = call.parameters["session"] ?: return@get call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
-            val email = call.parameters["email"] ?: return@get call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val session = call.parameters["session"] ?: return@get call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val email = call.parameters["email"] ?: return@get call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@get  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
 
             when(val res = useFindNoteById.execute(id)){
@@ -69,8 +69,8 @@ fun Routing.singleNoteRouting(
         put("{session?}/{email?}") {
             val note = call.receive<Note>()
 
-            val session = call.parameters["session"] ?: return@put call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
-            val email = call.parameters["email"] ?: return@put call.respondText(Constants.MISSING_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val session = call.parameters["session"] ?: return@put call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
+            val email = call.parameters["email"] ?: return@put call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@put  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
 
             when(val res = useUpdateNote.execute(note)){

@@ -33,7 +33,7 @@ fun Routing.singleNoteRouting(
             val session = call.parameters["session"] ?: return@post call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             val email = call.parameters["email"] ?: return@post call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@post  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
-
+            print(note)
             useInsertNote.execute(note)
             call.respondText(SUCCESS_MESSAGE, status =  HttpStatusCode.OK)
         }

@@ -7,8 +7,8 @@ import com.example.domain.repository.NotesRepository
 class DataNotesRepository(
     private val notesMongoDataSource: NotesMongoDataSource
 ):NotesRepository {
-    override suspend fun insertNote(note: NoteEntity) {
-        notesMongoDataSource.insertNote(note)
+    override suspend fun insertNote(note: NoteEntity):String {
+        return notesMongoDataSource.insertNote(note)
     }
 
     override suspend fun getNotes(session:String): List<NoteEntity> {
@@ -23,7 +23,7 @@ class DataNotesRepository(
         return notesMongoDataSource.findNoteById(id)
     }
 
-    override suspend fun updateNote(note: NoteEntity) {
-        notesMongoDataSource.updateNote(note)
+    override suspend fun updateNote(note: NoteEntity, session: String) {
+        notesMongoDataSource.updateNote(note, session)
     }
 }

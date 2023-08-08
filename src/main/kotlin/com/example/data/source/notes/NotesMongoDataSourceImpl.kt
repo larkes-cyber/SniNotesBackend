@@ -2,6 +2,7 @@ package com.example.data.source.notes
 
 import com.example.data.model.NoteEntity
 import com.mongodb.client.model.Filters
+import org.bson.types.ObjectId
 import org.litote.kmongo.coroutine.CoroutineDatabase
 
 class NotesMongoDataSourceImpl(
@@ -9,14 +10,18 @@ class NotesMongoDataSourceImpl(
 ): NotesMongoDataSource {
 
     private val notes = db.getCollection<NoteEntity>()
-    override suspend fun insertNote(note: NoteEntity) {
-       notes.insertOne(note)
+    override suspend fun insertNote(note: NoteEntity):String {
+        val generatedId = ObjectId().toString()
+        note.id = generatedId
+        println("sadsadasdsadsadasdafergjweaerhgsdfgawegstghdsgsdgsadsadasdafergjweaerhgsdfgawegstghdsgsdgafergjweaerhgsdfgawegstghdsgsdg")
+        notes.insertOne(note)
+        return generatedId
     }
 
     override suspend fun getAllNotes(session:String): List<NoteEntity> {
         val filter = Filters.eq("session", session)
         return notes.find(filter)
-            .descendingSort(NoteEntity::timestamp)
+            .descendingSort(NoteEntity::color)
             .toList()
     }
 
@@ -27,13 +32,14 @@ class NotesMongoDataSourceImpl(
     }
 
     override suspend fun findNoteById(id: String): NoteEntity {
+        println("$id  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         val filter = Filters.eq("_id", id)
         return notes.findOne(filter)!!
     }
 
-    override suspend fun updateNote(note: NoteEntity) {
+    override suspend fun updateNote(note: NoteEntity, session: String) {
         val filter = Filters.eq("_id", note.id)
-        val filter2 = Filters.eq("session", note.session)
+        val filter2 = Filters.eq("session", session)
         notes.replaceOne(Filters.and(filter, filter2), note)
     }
 }

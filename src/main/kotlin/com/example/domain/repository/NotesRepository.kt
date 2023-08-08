@@ -5,10 +5,10 @@ import com.example.domain.model.Note
 
 interface NotesRepository {
 
-    suspend fun insertNote(note:NoteEntity)
+    suspend fun insertNote(note:NoteEntity):String
     suspend fun getNotes(session:String):List<NoteEntity>
     suspend fun deleteNoteById(id:String, session:String)
     suspend fun findNoteById(id:String):NoteEntity
-    suspend fun updateNote(note:NoteEntity)
+    suspend fun updateNote(note:NoteEntity, session: String)
 
 }

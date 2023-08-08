@@ -15,6 +15,7 @@ class UseFindNoteById(
             val note = notesRepository.findNoteById(id)
             Resource.Success(note.toNote())
         }catch (e:Exception){
+            println("${e.message}   ##############################################################################")
             Resource.Error(e.message.toString())
         }
 

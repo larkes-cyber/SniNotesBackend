@@ -16,6 +16,9 @@ class UserMongoDataSourceImpl(
 
     override suspend fun findUserByEmail(email: String): UserEntity? {
         val userFilter = Filters.eq("_id", email)
+        users.find().toList().forEach{
+            print(it.email)
+        }
         return users.findOne(userFilter)
     }
 

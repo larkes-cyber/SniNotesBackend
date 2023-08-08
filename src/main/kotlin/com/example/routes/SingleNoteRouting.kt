@@ -33,9 +33,8 @@ fun Routing.singleNoteRouting(
             val session = call.parameters["session"] ?: return@post call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             val email = call.parameters["email"] ?: return@post call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@post  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
-            print(note)
-            useInsertNote.execute(note)
-            call.respondText(SUCCESS_MESSAGE, status =  HttpStatusCode.OK)
+            val id = useInsertNote.execute(note = note, session = session)
+            call.respondText(id, status =  HttpStatusCode.OK)
         }
 
         delete("{id?}/{session?}/{email?}") {
@@ -61,7 +60,7 @@ fun Routing.singleNoteRouting(
 
             when(val res = useFindNoteById.execute(id)){
                 is Resource.Success -> call.respond(status = HttpStatusCode.OK, res.data!!)
-                is Resource.Error -> call.respondText(res.message!!, status = HttpStatusCode.OK)
+                is Resource.Error -> call.respondText(res.message!!, status = HttpStatusCode.ExpectationFailed)
                 else -> {}
             }
         }
@@ -73,9 +72,9 @@ fun Routing.singleNoteRouting(
             val email = call.parameters["email"] ?: return@put call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             if(!useCheckExistUser.execute(email = email, session = session)) return@put  call.respondText(Constants.INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
 
-            when(val res = useUpdateNote.execute(note)){
+            when(val res = useUpdateNote.execute(note, session)){
                 is Resource.Success -> call.respond(status = HttpStatusCode.OK, SUCCESS_MESSAGE)
-                is Resource.Error -> call.respondText(res.message!!, status = HttpStatusCode.OK)
+                is Resource.Error -> call.respondText(res.message!!, status = HttpStatusCode.ExpectationFailed)
                 else -> {}
             }
         }

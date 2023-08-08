@@ -8,8 +8,8 @@ class UseInsertNote(
     private val notesRepository: NotesRepository
 ) {
 
-    suspend fun execute(note:Note){
-        notesRepository.insertNote(note.toNoteEntity())
+    suspend fun execute(note:Note, session:String):String{
+        return notesRepository.insertNote(note.toNoteEntity(session))
     }
 
 }

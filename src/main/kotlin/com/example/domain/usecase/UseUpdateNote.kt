@@ -10,10 +10,10 @@ class UseUpdateNote(
     private val notesRepository: NotesRepository
 ) {
 
-    suspend fun execute(note: Note):Resource<*>{
+    suspend fun execute(note: Note, session:String):Resource<*>{
 
         return try {
-            notesRepository.updateNote(note.toNoteEntity())
+            notesRepository.updateNote(note.toNoteEntity(session), session)
             Resource.Success(SUCCESS_MESSAGE)
         }catch (e:Exception){
             Resource.Error<String>(e.message.toString())

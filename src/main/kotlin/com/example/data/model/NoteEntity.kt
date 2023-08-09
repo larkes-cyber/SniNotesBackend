@@ -8,5 +8,6 @@ data class NoteEntity(
     val text:String,
     val title:String,
     val color:Long,
-    val session:String
+    val session:String,
+    val timestamp:Long
 )

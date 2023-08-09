@@ -8,7 +8,8 @@ fun Note.toNoteEntity(session:String):NoteEntity{
             text = text,
             title = title,
             color = color,
-            session = session
+            session = session,
+            timestamp = timestamp
         )
     }else {
         NoteEntity(
@@ -16,7 +17,8 @@ fun Note.toNoteEntity(session:String):NoteEntity{
             title = title,
             id = id,
             color = color,
-            session = session
+            session = session,
+            timestamp = timestamp
         )
     }
 }
@@ -26,6 +28,7 @@ fun NoteEntity.toNote(): Note {
         id = id,
         title = title,
         text = text,
-        color = color
+        color = color,
+        timestamp = timestamp
     )
 }

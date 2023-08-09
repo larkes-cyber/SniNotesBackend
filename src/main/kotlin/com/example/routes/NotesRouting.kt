@@ -1,5 +1,6 @@
 package com.example.routes
 
+import com.example.domain.model.Notes
 import com.example.domain.usecase.UseCheckExistUser
 import com.example.domain.usecase.UseGetAllNotes
 import com.example.utils.Constants
@@ -22,7 +23,12 @@ fun Routing.notesRouting(
             val session = call.parameters["session"] ?: return@get call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             val email = call.parameters["email"] ?: return@get call.respondText(Constants.MISSED_ID_MESSAGE, status = HttpStatusCode.BadRequest)
             return@get if(useCheckExistUser.execute(email = email, session = session)){
-                call.respond(HttpStatusCode.OK, useGetAllNotes.execute(session))
+                call.respond(
+                    status = HttpStatusCode.OK,
+                    Notes(
+                        notes = useGetAllNotes.execute(session)
+                    )
+                )
              }else{
                  call.respondText(INCORRECT_SESSION_MESSAGE, status = HttpStatusCode.BadRequest )
             }

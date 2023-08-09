@@ -13,7 +13,6 @@ class NotesMongoDataSourceImpl(
     override suspend fun insertNote(note: NoteEntity):String {
         val generatedId = ObjectId().toString()
         note.id = generatedId
-        println("sadsadasdsadsadasdafergjweaerhgsdfgawegstghdsgsdgsadsadasdafergjweaerhgsdfgawegstghdsgsdgafergjweaerhgsdfgawegstghdsgsdg")
         notes.insertOne(note)
         return generatedId
     }
@@ -32,7 +31,6 @@ class NotesMongoDataSourceImpl(
     }
 
     override suspend fun findNoteById(id: String): NoteEntity {
-        println("$id  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         val filter = Filters.eq("_id", id)
         return notes.findOne(filter)!!
     }
